@@ -12,7 +12,7 @@ void making(struct generator *g, struct waveform *w) {
 	}		
 	w->step = g->step;
 	w->simulationTime = g->simulationTime;
-	w->amplitude *= sqrt(2);
+	/* w->amplitude *= sqrt(2); */
 	w->samplingTime = w->simulationTime/g->step;
 	w->outTime = (float*)calloc(w->step, sizeof(float));
 	w->outValue = (float*)calloc(w->step, sizeof(float));
