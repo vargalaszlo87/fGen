@@ -24,49 +24,26 @@ void makeSquare(struct generator *g, struct waveform *w) {
 	}
 }
 
-/*
-
-// DEVELOP, problem with transformation!
-
-void makeTriangle(struct generator *g, struct waveform *w) {	
-	int i = -1, j = 0, k = 1;
-	float mask[] = {1, 1, -1, -1}, x;	
-	int *cross = (int*)calloc(k,sizeof(int));
-	*(cross+(k)) = 0;	
-	makeSquare(g,w);
-	// cross-zero
-	while (++i < w->step)
-		if (*(w->outValue+i) != *(w->outValue+(i+1)) && i > 0 )
-			*(cross+k) = i, cross = realloc(cross, k++*sizeof(int));
-	// T/2 					
-	i = 0;
-	int *half = (int*)calloc(k,sizeof(int));
-	*(half+0) = 0;
-	while (++i < k)
-		*(half+i) = (i < k) ? (*(cross+i)-*(cross+i-1))/2+*(cross+i-1) : *(cross+k-1);
-	// T/4	
-	int *quad = (int*)calloc(k+(k-1),sizeof(int));
-	i = -1, j = 0;
-	for (i = -1 ; i < (k+(k-1)) ; i+=2)
-		*(quad+i) = *(half+j), *(quad+i+1) = *(cross+j++);		
-	// out
-	int l = 0, m = 0, n = 0;
-	i = -1;
-	while (++i < k+(k-1)) {
-
-			x = w->amplitude / (*(quad+i+1)-*(quad+i)); 
-		printf ("%lf ",x);
-		j = *(quad+i)-1;
-		while(++j < *(quad+i+1))
-			*(w->outValue+n++) = (i%2 == 0) ? 0 + mask[m]*l++*x : mask[m]*(w->amplitude-l++*x);	
-		m = (m == 3) ? 0 : m+1;
-		l = 0;
-	}
-	free(cross);
-	free(half);	 
+void makeTriangle(struct generator *g, struct waveform *w) {
+	int i = -1, j = 0, k = 0;
+	making (g, w);
+	float 
+		mask[] = {0, w->amplitude, 0, -w->amplitude},
+		countPeriod = g->simulationTime / (1.0 / w->frequency);
+	int increment = round(w->step / (countPeriod * 4));
+	float incrementum = w->amplitude / increment; 
+	while (++i < ceil(countPeriod)*4) {
+		if (k == w -> step)
+			return;			
+		*(w->outValue+k++) = mask[i%4];
+		j = 0;
+		while (++j < increment) {	
+			if (k == w -> step)
+				return;
+			*(w->outValue+k++) = mask[i%4] + incrementum * ((i%4 == 0 || i%4 == 3) ? +1 : -1) * j;		
+		}
+	}	
 }
-
-*/
 
 /* non-periodic signals */
 
