@@ -4,6 +4,7 @@
 /* periodic signals */
 void makeSine(struct generator *, struct waveform *) ;
 void makeSquare(struct generator *, struct waveform *);
+void makeTriangle(struct generator *, struct waveform *);
 /* non-periodic signals */
 void makeSqrt(struct generator *, struct waveform *);
 void makeLog(struct generator *, struct waveform *);
