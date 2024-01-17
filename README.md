@@ -15,7 +15,7 @@ This is an user friendly function generator in C. You can simple way generate di
 
 **`WAVEFORMS`**
 
-- **periodic** signals: *sine, square* 
+- **periodic** signals: *sine, square, triangle* 
 - **non-periodic** signals: *square root, Log, Log2, Log10, Lin*
 
 
