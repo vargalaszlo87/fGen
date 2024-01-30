@@ -22,6 +22,11 @@ This is an user friendly function generator in C. You can simple way generate di
 **`OPERATIONS`**
 - **math:** *add, sub, mul, div*
 
+**`OUTPUTS`**
+- **showWaves:** *makes a list with two columns in console*
+- **writeCSV:** *makes a CSV file with content of "showWaves"*
+- **writeHeader:** *makes a standard C header file with two arrays*
+
 
 ## Getting started
 
