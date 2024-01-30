@@ -26,4 +26,23 @@ int writeCSV(struct waveform *w) {
 	return 0;
 }
 
+int writeHeader(struct waveform *w) {
+	FILE *f;
+	f = fopen("fgenwave.h","w");
+	if (f == NULL) {
+		fprintf (stdout,"Error occurred while opening file.");
+		return 1;
+	}
+	fprintf (f,"#ifndef FGENWAVE_H\n#define FGENWAVE_H\n\ndouble fgenAmplitude[] = {");
+	int i = -1;	
+	while (++i < w->step) 
+		fprintf (f, "%lf, ",*(w->outValue+i));
+	fprintf (f, "};\n\ndouble fgenTime[] = {");
+	i = -1;	
+	while (++i < w->step) 
+		fprintf (f, "%lf, ",*(w->outTime+i));
+	fprintf (f, "};\n\n#endif\n");
+	fclose(f);
+} 
+
 
