@@ -3,5 +3,6 @@
 
 void showWaves(struct waveform *);
 int writeCSV(struct waveform *);
+int writeHeader(struct waveform *);
 
 #endif
