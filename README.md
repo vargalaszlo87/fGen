@@ -28,7 +28,7 @@ This is an user friendly function generator in C. You can simple way generate di
 - **writeHeader:** *makes a standard C header file with two arrays*
 
 
-## Getting started
+## ✨ Getting started / Usage
 
 To use this repository, you will need:
 - GCC (or similar C compiler)
