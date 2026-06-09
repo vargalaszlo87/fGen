@@ -5,7 +5,7 @@
 #include "variables.h"
 #include "signals.h"
 
-/* periodic signals */
+// periodic signals
 
 void makeSine(struct generator *g, struct waveform *w) {
 	int i = -1;
@@ -45,7 +45,7 @@ void makeTriangle(struct generator *g, struct waveform *w) {
 	}	
 }
 
-/* non-periodic signals */
+// non-periodic signals
 
 void makeSqrt(struct generator *g, struct waveform *w) {
 	int i = -1;
