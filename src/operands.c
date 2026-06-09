@@ -2,6 +2,8 @@
 #include "operands.h"
 #include "create.h"
 
+// teszt;
+
 struct waveform addWaves(struct generator *g, struct waveform *w1, struct waveform *w2) {
 	int i = -1;
 	struct waveform r = operation(g, w1, w2);
