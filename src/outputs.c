@@ -43,6 +43,7 @@ int writeHeader(struct waveform *w) {
 		fprintf (f, "%lf, ",*(w->outTime+i));
 	fprintf (f, "};\n\n#endif\n");
 	fclose(f);
+	return 0;
 } 
 
 

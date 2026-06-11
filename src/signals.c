@@ -4,6 +4,50 @@
 
 #include "variables.h"
 #include "signals.h"
+
+
+// generator
+
+void generate(simulation *s, waveform *w)
+{
+    switch(w->type)
+    {
+        case SIGNAL_SINE:
+            makeSine(s, w);
+            break;
+
+        case SIGNAL_SQUARE:
+            makeSquare(s, w);
+            break;
+			
+		case SIGNAL_TRIANGLE:
+            makeTriangle(s, w);
+            break;
+
+		case SIGNAL_SQRT:
+            makeSqrt(s, w);
+            break;
+
+		case SIGNAL_LIN:
+            makeLin(s, w);
+            break;
+
+		case SIGNAL_LOG:
+            makeLog(s, w);
+            break;
+
+
+		case SIGNAL_LOG2:
+            makeLog2(s, w);
+            break;
+
+		case SIGNAL_LOG10:
+            makeLog10(s, w);
+            break;
+
+    }
+}
+
 // periodic signals
 
 void makeSine(struct simulation *s, struct waveform *w) {
@@ -32,7 +76,7 @@ void makeSquare(struct simulation *s, struct waveform *w) {
 	}
 }
 
-void makeTriansle(struct simulation *s, struct waveform *w) {
+void makeTriangle(struct simulation *s, struct waveform *w) {
 	int i = -1, j = 0, k = 0;
 	making (s, w);
 	float 

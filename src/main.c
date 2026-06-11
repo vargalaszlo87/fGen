@@ -5,40 +5,44 @@
 #include "fgen.h"
 
 int main(int argc, char *argv[]) {
+
+	(void)argc;
+	(void)argv;
 	
 	// create a simulation
-	simulation sim;
-	sim.step = 10000;
-	sim.simulationTime = 0.1755;
+	simulation sim = {
+		.step = 1e5,
+		.simulationTime = 1e-3
+	};
 	
-	// create a sine signal
-	waveform signal = {0};
-	signal.amplitude = 230;
-	signal.frequency = 120;
-	makeSine(&sim, &signal);	
+	// carrier signal
+	waveform carrier = {
+		.type = SIGNAL_SINE,
+		.amplitude = 1,
+		.frequency = 455e3,
+		.offset = 0,
+		.phase = 0
+	};
+	generate (&sim, &carrier);
 
-	// crate a sine noise-signal
-	waveform noise;
-	noise.amplitude = 23;
-	noise.frequency = 5000;
-	noise.offset = 2;
-	noise.phase = 3;
-	makeSine(&sim, &noise);
+	waveform voice = {
+		.type = SIGNAL_SINE,
+		.amplitude = 1,
+		.frequency = 2e3,
+		.offset = 1.5,
+		.phase = 0
+	};
+	generate (&sim, &voice);
 
-	// create a ramp (sqrt function)
-	waveform ramp;
-	makeSqrt(&sim, &ramp);
 
 	// make an 'out' waveform
 	waveform out;
 	
-	// add two signals (out = signal + noise)
-	// multiply two signals (out = out * ramp)
-	out = addWaves(&sim, &signal, &noise);
-	out = mulWaves(&sim, &out, &ramp);
+	// opreations
+	out = mulWaves(&sim, &carrier, &voice);
 
 	// write to stdout and CSV
-	showWaves(&out);
+	//showWaves(&out);
 	writeCSV(&out);	
 		
 	return 0 ;

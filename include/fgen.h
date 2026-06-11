@@ -7,5 +7,6 @@
 #include "signals.h"
 #include "operands.h"
 #include "outputs.h"
+#include "language.h"
 
 #endif
