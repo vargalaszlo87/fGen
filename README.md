@@ -86,20 +86,28 @@ Insert your headers:
 ```
 Create a simulation:
 ```C
-struct generator g;
-g.step = 10000;               /* number of steps */
-g.simulationTime = 0.1755;    /* time in seconds */
+	// create a simulation
+	simulation sim = {
+		.step = 1e5,
+		.simulationTime = 1e-3
+	};
+	
 ```
 Create a waveform:
 ```C
-struct waveform signal;
-signal.amplitude = 230;       /* set amplitude */
-signal.frequency = 120;       /* set frequency */
-makeSine(&g, &signal);
+	// carrier signal
+	waveform carrier = {
+		.type = SIGNAL_SINE,
+		.amplitude = 1,
+		.frequency = 455e3,
+		.offset = 0,
+		.phase = 0
+	};
+	generate (&sim, &carrier);
 ```
 Generate an output:
 ```C
-showWaves(&signal);
+showWaves(&carrier);
 ```
 
 ## Example
@@ -109,45 +117,53 @@ src/main.c file:
 ```C
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "fgen.h"
 
 int main(int argc, char *argv[]) {
+
+	(void)argc;
+	(void)argv;
 	
 	// create a simulation
-	struct generator g;
-	g.step = 10000;
-	g.simulationTime = 0.1755;
+	simulation sim = {
+		.step = 1e5,
+		.simulationTime = 1e-3
+	};
 	
-	// create a sine signal
-	struct waveform signal;
-	signal.amplitude = 230;
-	signal.frequency = 120;
-	makeSine(&g, &signal);
+	// carrier signal
+	waveform carrier = {
+		.type = SIGNAL_SINE,
+		.amplitude = 1,
+		.frequency = 455e3,
+		.offset = 0,
+		.phase = 0
+	};
+	generate (&sim, &carrier);
 
-	// crate a sine noise-signal
-	struct waveform noise;
-	noise.amplitude = 23;
-	noise.frequency = 5000;
-	makeSine(&g, &noise);
-
-	// create a ramp (sqrt function)
-	struct waveform ramp;
-	makeSqrt(&g, &ramp);
+	waveform voice = {
+		.type = SIGNAL_SINE,
+		.amplitude = 1,
+		.frequency = 2e3,
+		.offset = 1.5,
+		.phase = 0
+	};
+	generate (&sim, &voice);
 
 	// make an 'out' waveform
-	struct waveform out;
+	waveform out;
 	
-	// add two signals (out = signal + noise)
-	// multiply two signals (out = out * ramp)
-	out = addWaves(&g, &signal, &noise);
-	out = mulWaves(&g, &out, &ramp);
+	// opreations
+	out = mulWaves(&sim, &carrier, &voice);
 
 	// write to stdout and CSV
 	showWaves(&out);
 	writeCSV(&out);	
 		
 	return 0 ;
+}
+
 }
 
 ```
