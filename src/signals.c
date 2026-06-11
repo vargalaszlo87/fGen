@@ -11,7 +11,11 @@ void makeSine(struct generator *g, struct waveform *w) {
 	int i = -1;
 	making(g, w);
 	while (++i < w->step) 
-		*(w->outValue+i) = w->amplitude * sin(2*M_PI*(float)w->frequency*i*w->samplingTime);	
+		*(w->outValue+i) = 
+			w->offset 
+			+ w->amplitude 
+			* sin(
+				2 * M_PI * (float)w->frequency * i * w->samplingTime);	
 }
 
 void makeSquare(struct generator *g, struct waveform *w) {
@@ -19,7 +23,12 @@ void makeSquare(struct generator *g, struct waveform *w) {
 	float temp = 0.0;
 	making(g, w);
 	while (++i < w->step) {
-		temp = w->amplitude * sin(2*M_PI*(float)w->frequency*i*w->samplingTime);
+		temp =
+			w->offset 
+			+ w->amplitude 
+			* sin(
+				2 * M_PI * (float)w->frequency * i * w->samplingTime);
+
 		*(w->outValue+i) = (temp < 0) ? -1*w->amplitude : w->amplitude;
 	}
 }
@@ -28,7 +37,11 @@ void makeTriangle(struct generator *g, struct waveform *w) {
 	int i = -1, j = 0, k = 0;
 	making (g, w);
 	float 
-		mask[] = {0, w->amplitude, 0, -w->amplitude},
+		mask[] = {
+			0 + w->offset, 
+			w->amplitude + w->offset, 
+			0 + w->offset, 
+			-w->amplitude + w->offset},
 		countPeriod = g->simulationTime / (1.0 / w->frequency);
 	int increment = round(w->step / (countPeriod * 4));
 	float incrementum = w->amplitude / increment; 

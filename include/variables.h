@@ -6,8 +6,10 @@
 #endif
 
 typedef struct waveform {
-	float amplitude;
-	float frequency;
+	float amplitude;	// [V]
+	float frequency;	// [Hz]
+	float offset;		// [V]
+	float phase;		// [deg]
 	float simulationTime;
 	signed int step;
 	float samplingTime;

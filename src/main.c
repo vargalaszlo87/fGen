@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 	g.simulationTime = 0.1755;
 	
 	// create a sine signal
-	struct waveform signal;
+	struct waveform signal = {0};
 	signal.amplitude = 230;
 	signal.frequency = 120;
 	makeSine(&g, &signal);
@@ -21,6 +21,8 @@ int main(int argc, char *argv[]) {
 	struct waveform noise;
 	noise.amplitude = 23;
 	noise.frequency = 5000;
+	noise.offset = 2;
+	noise.phase = 3;
 	makeSine(&g, &noise);
 
 	// create a ramp (sqrt function)

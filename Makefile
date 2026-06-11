@@ -1,7 +1,7 @@
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Iinclude -std=c11
-LDFLAGS = -Llib
+LDFLAGS = -Llib -lm
 
 # =========================================================
 # MAIN PROGRAM
