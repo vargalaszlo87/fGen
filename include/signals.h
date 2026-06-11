@@ -2,14 +2,14 @@
 #define SIGNALS_H
 
 /* periodic signals */
-void makeSine(struct generator *, struct waveform *) ;
-void makeSquare(struct generator *, struct waveform *);
-void makeTriangle(struct generator *, struct waveform *);
+void makeSine(struct simulation *, struct waveform *) ;
+void makeSquare(struct simulation *, struct waveform *);
+void makeTriangle(struct simulation *, struct waveform *);
 /* non-periodic signals */
-void makeSqrt(struct generator *, struct waveform *);
-void makeLog(struct generator *, struct waveform *);
-void makeLog2(struct generator *, struct waveform *);
-void makeLog10(struct generator *, struct waveform *);
-void makeLin(struct generator *, struct waveform *);
+void makeSqrt(struct simulation *, struct waveform *);
+void makeLog(struct simulation *, struct waveform *);
+void makeLog2(struct simulation *, struct waveform *);
+void makeLog10(struct simulation *, struct waveform *);
+void makeLin(struct simulation *, struct waveform *);
 
 #endif

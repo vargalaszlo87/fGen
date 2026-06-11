@@ -35,9 +35,9 @@ typedef struct waveform {
 	int result;	
 } waveform;
 
-typedef struct generator {
+typedef struct simulation {
 	int step;
 	float simulationTime;
-} generator;
+} simulation;
 
 #endif

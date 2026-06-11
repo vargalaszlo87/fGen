@@ -2,17 +2,17 @@
 #include "operands.h"
 #include "create.h"
 
-// general function
+// seneral function
 
 struct waveform binOperation(
-	struct generator *g,
+	struct simulation *s,
 	struct waveform *w1,
 	struct waveform *w2,
 	double (*op)(double, double)) 
 	{
 		int i = -1;
-		struct waveform r = operation(g, w1, w2);	
-		while (++i < g->step) {
+		struct waveform r = operation(s, w1, w2);	
+		while (++i < s->step) {
 			*(r.outValue+i) = op(w1->outValue[i], w2->outValue[i]);
 		}
 		return r;
@@ -38,18 +38,18 @@ double operationDiv(double a, double b) {
 
 // interfaces
 
-struct waveform addWaves(struct generator *g, struct waveform *w1, struct waveform *w2) {
-	return binOperation(g, w1, w2, operationAdd);
+struct waveform addWaves(struct simulation *s, struct waveform *w1, struct waveform *w2) {
+	return binOperation(s, w1, w2, operationAdd);
 }
 
-struct waveform subWaves(struct generator *g, struct waveform *w1, struct waveform *w2) {
-	return binOperation(g, w1, w2, operationSub);
+struct waveform subWaves(struct simulation *s, struct waveform *w1, struct waveform *w2) {
+	return binOperation(s, w1, w2, operationSub);
 }
 
-struct waveform mulWaves(struct generator *g, struct waveform *w1, struct waveform *w2) {
-	return binOperation(g, w1, w2, operationMul);
+struct waveform mulWaves(struct simulation *s, struct waveform *w1, struct waveform *w2) {
+	return binOperation(s, w1, w2, operationMul);
 }
 
-struct waveform divWaves(struct generator *g, struct waveform *w1, struct waveform *w2) {
-	return binOperation(g, w1, w2, operationDiv);
+struct waveform divWaves(struct simulation *s, struct waveform *w1, struct waveform *w2) {
+	return binOperation(s, w1, w2, operationDiv);
 }
