@@ -1,7 +1,7 @@
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Iinclude -std=c11
-LDFLAGS = -lnetcdf -Llib
+LDFLAGS = -Llib
 
 # =========================================================
 # MAIN PROGRAM
@@ -10,7 +10,7 @@ LDFLAGS = -lnetcdf -Llib
 SRC = $(wildcard src/*.c)
 OBJ = $(patsubst src/%.c, obj/%.o, $(SRC))
 
-BIN = bin/nc2json
+BIN = bin/fgen
 
 all: $(BIN)
 
@@ -29,8 +29,8 @@ obj/%.o: src/%.c
 
 TEST_SRC = $(wildcard tests/*.c)
 
-# src/nc2json.c kivétele a teszt buildből
-TESTABLE_SRC = $(filter-out src/nc2json.c, $(SRC))
+# src/main.c kivétele a teszt buildből
+TESTABLE_SRC = $(filter-out src/main.c, $(SRC))
 
 TEST_BIN = bin/tests
 
