@@ -5,22 +5,39 @@
 #define M_PI 3.14159265358979
 #endif
 
+typedef enum {
+    SIGNAL_SINE,
+    SIGNAL_SQUARE,
+    SIGNAL_TRIANGLE,
+    SIGNAL_SQRT,
+    SIGNAL_LIN,
+	SIGNAL_LOG,
+	SIGNAL_LOG2,
+	SIGNAL_LOG10
+} signalType;
+
 typedef struct waveform {
-	float amplitude;	// [V]
-	float frequency;	// [Hz]
-	float offset;		// [V]
-	float phase;		// [deg]
-	float simulationTime;
+	// type
+	signalType type;
+
+	// external variables
+	float amplitude;		// [V]
+	float frequency;		// [Hz]
+	float offset;			// [V]
+	float phase;			// [rad]
+
+	// internal variables
+	float simulationTime;	// [s]
+	float samplingTime;		// [s]
 	signed int step;
-	float samplingTime;
 	float *outTime;
 	float *outValue;
 	int result;	
-} _waveform;
+} waveform;
 
 typedef struct generator {
 	int step;
 	float simulationTime;
-} _generator;
+} generator;
 
 #endif

@@ -7,18 +7,18 @@
 int main(int argc, char *argv[]) {
 	
 	// create a simulation
-	struct generator g;
+	generator g;
 	g.step = 10000;
 	g.simulationTime = 0.1755;
 	
 	// create a sine signal
-	struct waveform signal = {0};
+	waveform signal = {0};
 	signal.amplitude = 230;
 	signal.frequency = 120;
 	makeSine(&g, &signal);
 
 	// crate a sine noise-signal
-	struct waveform noise;
+	waveform noise;
 	noise.amplitude = 23;
 	noise.frequency = 5000;
 	noise.offset = 2;
@@ -26,11 +26,11 @@ int main(int argc, char *argv[]) {
 	makeSine(&g, &noise);
 
 	// create a ramp (sqrt function)
-	struct waveform ramp;
+	waveform ramp;
 	makeSqrt(&g, &ramp);
 
 	// make an 'out' waveform
-	struct waveform out;
+	waveform out;
 	
 	// add two signals (out = signal + noise)
 	// multiply two signals (out = out * ramp)
