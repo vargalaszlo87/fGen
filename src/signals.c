@@ -53,6 +53,10 @@ void generate(simulation *s, waveform *w)
             makeLog10(s, w);
             break;
 
+		case SIGNAL_CHIRP:
+			makeChirp(s, w);
+			break;
+
     }
 }
 
@@ -87,27 +91,6 @@ void makeSquare(struct simulation *s, struct waveform *w) {
                 ? w->amplitude
                 : -w->amplitude);
     }
-
-/*
-	int i = -1;
-	float temp = 0.0;
-	making(s, w);
-	while (++i < w->step) {
-		temp =
-			sin(
-				2 * M_PI 
-				* (float)w->frequency 
-				* i * w->samplingTime 
-				+ w->phase);
-
-		*(w->outValue+i) = 
-			w->offset
-			+ ((temp < 0) 
-				? -1*w->amplitude 
-				: w->amplitude);
-	}
-
-*/
 }
 
 void makeTriangle(struct simulation *s, struct waveform *w) {
@@ -215,4 +198,30 @@ void makeLin(struct simulation *s, struct waveform *w) {
 	float temp = 1.0/s->step;
 	while (++i < w->step) 
 		*(w->outValue+i) = 0 + i * temp;	
+}
+
+// chirp
+
+void makeChirp(struct simulation *s, struct waveform *w) {
+	// precheck
+	if (w->endFrequency == 0)
+		w->endFrequency = w->frequency;
+
+    making(s, w);
+    float T = s->simulationTime;
+    float k = (w->endFrequency - w->frequency) / T;
+    for (int i = 0; i < w->step; i++) {
+        float t =
+            i * w->samplingTime;
+        float phase =
+            2.0f * M_PI *
+            (
+                w->frequency * t +
+                0.5f * k * t * t
+            );
+        w->outValue[i] =
+            w->offset +
+            w->amplitude *
+            sinf(phase + w->phase);
+    }
 }

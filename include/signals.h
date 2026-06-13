@@ -20,4 +20,7 @@ void makeLog2(struct simulation *, struct waveform *);
 void makeLog10(struct simulation *, struct waveform *);
 void makeLin(struct simulation *, struct waveform *);
 
+// chirp
+void makeChirp(struct simulation *, struct waveform *);
+
 #endif

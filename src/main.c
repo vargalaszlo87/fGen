@@ -44,6 +44,13 @@ int main(int argc, char *argv[]) {
 	};
 	generate (&sim, &square);
 
+	waveform chirp = {
+		.type = SIGNAL_CHIRP,
+		.amplitude = 1.0,
+		.frequency = 1e3,     
+		.endFrequency = 1e5  
+	};
+	generate (&sim, &chirp);
 
 	// make an 'out' waveform
 	waveform out;
@@ -53,7 +60,7 @@ int main(int argc, char *argv[]) {
 
 	// write to stdout and CSV
 	//showWaves(&out);
-	writeCSV(&square);	
+	writeCSV(&chirp);	
 		
 	return 0 ;
 }

@@ -15,7 +15,8 @@ typedef enum {
     SIGNAL_LIN,
 	SIGNAL_LOG,
 	SIGNAL_LOG2,
-	SIGNAL_LOG10
+	SIGNAL_LOG10,
+	SIGNAL_CHIRP
 } signalType;
 
 typedef struct waveform {
@@ -29,7 +30,8 @@ typedef struct waveform {
 	float phase;			// [rad]
 
 	// extra external variables
-	float duty;				//
+	float duty;				// [1..99]
+	float endFrequency;		// [Hz]
 
 	// internal variables
 	float simulationTime;	// [s]
