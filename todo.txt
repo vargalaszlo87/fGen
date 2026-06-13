@@ -1,0 +1,23 @@
+This is my todo list for this project.
+--------------------------------------
+
+add signals:
+- noise
+- impulse
+- step
+
+post process:
+- scale
+- offset
+- rectify (fabs)
+- clip
+- normalize
+
+modulation:
+- am
+- fm
+- cw
+
+dsp
+- fir
+- fft
