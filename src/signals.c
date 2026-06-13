@@ -58,7 +58,7 @@ void makeSine(struct simulation *s, struct waveform *w) {
 			w->offset 
 			+ w->amplitude 
 			* sin(
-				2 * M_PI * (float)w->frequency * i * w->samplingTime);	
+				2 * M_PI * (float)w->frequency * i * w->samplingTime + w->phase);	
 }
 
 void makeSquare(struct simulation *s, struct waveform *w) {
@@ -67,16 +67,22 @@ void makeSquare(struct simulation *s, struct waveform *w) {
 	making(s, w);
 	while (++i < w->step) {
 		temp =
-			w->offset 
-			+ w->amplitude 
-			* sin(
-				2 * M_PI * (float)w->frequency * i * w->samplingTime);
+			/*+ w->amplitude*/ 
+			sin(
+				2 * M_PI 
+				* (float)w->frequency 
+				* i * w->samplingTime 
+				+ w->phase);
 
-		*(w->outValue+i) = (temp < 0) ? -1*w->amplitude : w->amplitude;
+		*(w->outValue+i) = 
+			w->offset
+			+ ((temp < 0) 
+				? -1*w->amplitude 
+				: w->amplitude);
 	}
 }
 
-void makeTriangle(struct simulation *s, struct waveform *w) {
+/*void makeTriangle(struct simulation *s, struct waveform *w) {
 	int i = -1, j = 0, k = 0;
 	making (s, w);
 	float 
@@ -99,6 +105,40 @@ void makeTriangle(struct simulation *s, struct waveform *w) {
 			*(w->outValue+k++) = mask[i%4] + incrementum * ((i%4 == 0 || i%4 == 3) ? +1 : -1) * j;		
 		}
 	}	
+}*/
+
+void makeTriangle(struct simulation *s, struct waveform *w) {
+
+    int i;
+
+    making(s, w);
+
+    for (i = 0; i < w->step; i++) {
+
+        double t =
+            i * w->samplingTime;
+
+        double phaseTime =
+            w->phase /
+            (2.0 * M_PI * w->frequency);
+
+        double period =
+            1.0 / w->frequency;
+
+        double x =
+            fmod(
+                t + phaseTime,
+                period
+            ) / period;
+
+        double triangle =
+            4.0 * fabs(x - 0.5) - 1.0;
+
+        w->outValue[i] =
+            w->offset
+            - w->amplitude
+            * triangle;
+    }
 }
 
 // non-periodic sisnals

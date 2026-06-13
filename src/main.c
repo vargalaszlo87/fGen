@@ -34,6 +34,15 @@ int main(int argc, char *argv[]) {
 	};
 	generate (&sim, &voice);
 
+	waveform triangle = {
+		.type = SIGNAL_TRIANGLE,
+		.amplitude = 1.23,
+		.frequency = 2e3,
+		.offset = 1,
+		.phase = M_PI / 2
+	};
+	generate (&sim, &triangle);
+
 
 	// make an 'out' waveform
 	waveform out;
@@ -43,7 +52,7 @@ int main(int argc, char *argv[]) {
 
 	// write to stdout and CSV
 	//showWaves(&out);
-	writeCSV(&out);	
+	writeCSV(&triangle);	
 		
 	return 0 ;
 }
