@@ -10,6 +10,7 @@ void generate(simulation *, waveform *);
 void makeSine(struct simulation *, struct waveform *);
 void makeSquare(struct simulation *, struct waveform *);
 void makeTriangle(struct simulation *, struct waveform *);
+void makeSawtooth(struct simulation *, struct waveform *);
 
 // non-periodic signals 
 void makeSqrt(struct simulation *, struct waveform *);

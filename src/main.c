@@ -34,14 +34,14 @@ int main(int argc, char *argv[]) {
 	};
 	generate (&sim, &voice);
 
-	waveform triangle = {
-		.type = SIGNAL_TRIANGLE,
+	waveform sawtooth = {
+		.type = SIGNAL_SAWTOOTH,
 		.amplitude = 1.23,
 		.frequency = 2e3,
 		.offset = 1,
 		.phase = M_PI / 2
 	};
-	generate (&sim, &triangle);
+	generate (&sim, &sawtooth);
 
 
 	// make an 'out' waveform
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 
 	// write to stdout and CSV
 	//showWaves(&out);
-	writeCSV(&triangle);	
+	writeCSV(&sawtooth);	
 		
 	return 0 ;
 }

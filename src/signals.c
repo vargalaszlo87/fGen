@@ -24,6 +24,10 @@ void generate(simulation *s, waveform *w)
             makeTriangle(s, w);
             break;
 
+		case SIGNAL_SAWTOOTH:
+			makeSawtooth(s, w);
+			break;
+
 		case SIGNAL_SQRT:
             makeSqrt(s, w);
             break;
@@ -82,49 +86,19 @@ void makeSquare(struct simulation *s, struct waveform *w) {
 	}
 }
 
-/*void makeTriangle(struct simulation *s, struct waveform *w) {
-	int i = -1, j = 0, k = 0;
-	making (s, w);
-	float 
-		mask[] = {
-			0 + w->offset, 
-			w->amplitude + w->offset, 
-			0 + w->offset, 
-			-w->amplitude + w->offset},
-		countPeriod = s->simulationTime / (1.0 / w->frequency);
-	int increment = round(w->step / (countPeriod * 4));
-	float incrementum = w->amplitude / increment; 
-	while (++i < ceil(countPeriod)*4) {
-		if (k == w -> step)
-			return;			
-		*(w->outValue+k++) = mask[i%4];
-		j = 0;
-		while (++j < increment) {	
-			if (k == w -> step)
-				return;
-			*(w->outValue+k++) = mask[i%4] + incrementum * ((i%4 == 0 || i%4 == 3) ? +1 : -1) * j;		
-		}
-	}	
-}*/
-
 void makeTriangle(struct simulation *s, struct waveform *w) {
 
     int i;
-
     making(s, w);
-
     for (i = 0; i < w->step; i++) {
 
         double t =
             i * w->samplingTime;
-
         double phaseTime =
             w->phase /
             (2.0 * M_PI * w->frequency);
-
         double period =
             1.0 / w->frequency;
-
         double x =
             fmod(
                 t + phaseTime,
@@ -133,11 +107,37 @@ void makeTriangle(struct simulation *s, struct waveform *w) {
 
         double triangle =
             4.0 * fabs(x - 0.5) - 1.0;
-
         w->outValue[i] =
             w->offset
             - w->amplitude
             * triangle;
+    }
+}
+
+void makeSawtooth(struct simulation *s, struct waveform *w) {
+
+    int i;
+    making(s, w);
+    for (i = 0; i < w->step; i++) {
+
+        double t =
+            i * w->samplingTime;
+        double phaseTime =
+            w->phase /
+            (2.0 * M_PI * w->frequency);
+        double period =
+            1.0 / w->frequency;
+        double x =
+            fmod(
+                t + phaseTime,
+                period
+            ) / period;
+        double saw =
+            2.0 * x - 1.0;
+        w->outValue[i] =
+            w->offset +
+            w->amplitude *
+            saw;
     }
 }
 
