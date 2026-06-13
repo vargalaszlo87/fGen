@@ -28,6 +28,9 @@ typedef struct waveform {
 	float offset;			// [V]
 	float phase;			// [rad]
 
+	// extra external variables
+	float duty;				//
+
 	// internal variables
 	float simulationTime;	// [s]
 	float samplingTime;		// [s]

@@ -70,12 +70,30 @@ void makeSine(struct simulation *s, struct waveform *w) {
 }
 
 void makeSquare(struct simulation *s, struct waveform *w) {
+    // default duty
+	if (w->duty <= 0 || w->duty >= 100)
+		w->duty = 50;
+
+    making(s, w);
+    float period = 1.0f / w->frequency;
+    for (int i = 0; i < w->step; i++) {
+        float t = i * w->samplingTime;
+        float posInPeriod = fmod(t, period);
+        float dutyTime =
+            period * w->duty / 100.0f;
+        *(w->outValue + i) =
+            w->offset +
+            ((posInPeriod < dutyTime)
+                ? w->amplitude
+                : -w->amplitude);
+    }
+
+/*
 	int i = -1;
 	float temp = 0.0;
 	making(s, w);
 	while (++i < w->step) {
 		temp =
-			/*+ w->amplitude*/ 
 			sin(
 				2 * M_PI 
 				* (float)w->frequency 
@@ -88,6 +106,8 @@ void makeSquare(struct simulation *s, struct waveform *w) {
 				? -1*w->amplitude 
 				: w->amplitude);
 	}
+
+*/
 }
 
 void makeTriangle(struct simulation *s, struct waveform *w) {
@@ -151,6 +171,8 @@ void makeReverseSawtooth(struct simulation *s, struct waveform *w) {
             2.0 * w->offset
             - w->outValue[i];
     }
+
+	printf ("\n\n%lf\n\n",w->duty);
 }
 
 // non-periodic sisnals

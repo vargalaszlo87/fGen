@@ -34,14 +34,15 @@ int main(int argc, char *argv[]) {
 	};
 	generate (&sim, &voice);
 
-	waveform sawtooth = {
-		.type = SIGNAL_REVERSE_SAWTOOTH,
+	waveform square = {
+		.type = SIGNAL_SQUARE,
 		.amplitude = 1.23,
 		.frequency = 2e3,
 		.offset = 1,
-		.phase = M_PI / 2
+		.phase = M_PI / 2,
+		.duty = 75
 	};
-	generate (&sim, &sawtooth);
+	generate (&sim, &square);
 
 
 	// make an 'out' waveform
@@ -52,7 +53,7 @@ int main(int argc, char *argv[]) {
 
 	// write to stdout and CSV
 	//showWaves(&out);
-	writeCSV(&sawtooth);	
+	writeCSV(&square);	
 		
 	return 0 ;
 }
