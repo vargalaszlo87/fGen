@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 	generate (&sim, &voice);
 
 	waveform sawtooth = {
-		.type = SIGNAL_SAWTOOTH,
+		.type = SIGNAL_REVERSE_SAWTOOTH,
 		.amplitude = 1.23,
 		.frequency = 2e3,
 		.offset = 1,

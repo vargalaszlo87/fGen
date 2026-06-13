@@ -28,6 +28,10 @@ void generate(simulation *s, waveform *w)
 			makeSawtooth(s, w);
 			break;
 
+		case SIGNAL_REVERSE_SAWTOOTH:
+			makeReverseSawtooth(s, w);
+			break;
+
 		case SIGNAL_SQRT:
             makeSqrt(s, w);
             break;
@@ -87,7 +91,6 @@ void makeSquare(struct simulation *s, struct waveform *w) {
 }
 
 void makeTriangle(struct simulation *s, struct waveform *w) {
-
     int i;
     making(s, w);
     for (i = 0; i < w->step; i++) {
@@ -115,7 +118,6 @@ void makeTriangle(struct simulation *s, struct waveform *w) {
 }
 
 void makeSawtooth(struct simulation *s, struct waveform *w) {
-
     int i;
     making(s, w);
     for (i = 0; i < w->step; i++) {
@@ -138,6 +140,16 @@ void makeSawtooth(struct simulation *s, struct waveform *w) {
             w->offset +
             w->amplitude *
             saw;
+    }
+}
+
+void makeReverseSawtooth(struct simulation *s, struct waveform *w) {
+    int i;
+    makeSawtooth(s, w);
+    for (i = 0; i < w->step; i++) {
+        w->outValue[i] =
+            2.0 * w->offset
+            - w->outValue[i];
     }
 }
 
